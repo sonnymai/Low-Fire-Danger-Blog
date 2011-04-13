@@ -1,0 +1,26 @@
+--- 
+title: Validating timezones in Ruby on Rails
+date: 13/04/2011
+
+Rails makes it too simple to allow users to specify their timezone. All you have to do is add the following to your form:
+
+	#_form.html.erb
+	..
+	<%= f.time_zone_select :time_zone, ActiveSupport::TimeZone.us_zones %>
+	..
+	
+	#user.rb
+	..
+	field :time_zone, :type => String
+	..
+
+Now you can see a very nice select element with all the timezones the world has to offer. In the above example, the US
+timezones will show before the rest of the world. But what do you do to validate the timezones? You just got to drop
+the below in to your model.
+
+	#user.rb
+	..
+	validates_inclusion_of :time_zone, :in => ActiveSupport::TimeZone.zones_map { |m| m.name }, :message => "is not a valid Time Zone"
+	..
+
+Simple!!
