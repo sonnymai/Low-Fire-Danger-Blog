@@ -1,0 +1,21 @@
+--- 
+title: Setting up proxies for apt-get in Ubuntu
+date: 13/04/2011
+
+Setting up a proxy for apt-get on Ubuntu
+
+I had installed ubuntu server 10.04 at work behind a proxy. I wanted to do a "aptitude update", which of course won't work till you set up the proxy correctly.
+
+This problem bugged me for a couple of hours, probably because I'm too lazy to RTFM, anyways, after some googling around, I managed to find the solution.
+
+	>sudo vi /etc/apt/apt.conf
+	#(apt.conf might not exist in some cases, you should edit "/etc/apt/apt.conf.d/05aptitude" instead)
+
+
+add this line:
+
+	Acquire::http::Proxy "http://<your proxy server>:<proxy port>/";
+
+Now you should be able to do all your apt-gets and what not. =)
+
+p.s. this also works with autoconfiguration proxy's.
