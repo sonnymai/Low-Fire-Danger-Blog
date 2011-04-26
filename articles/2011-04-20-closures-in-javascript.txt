@@ -37,8 +37,7 @@ Closures deal with the above scenario and the way it handles local variables ins
 	
 	var uselessFunction = anotherUselessFunction('WOW!');
 	
-What happens when we execute uselessFunction()? Would localVariable be accessible from uselessFunction()? It turns out that
-it is accessible.
+What happens when we execute uselessFunction()? Would localVariable be accessible from function returned by uselessFunction()? It turns out that it is accessible.
 
 	uselessFunction(); //Alerts 'WOW! I am Local'
 	

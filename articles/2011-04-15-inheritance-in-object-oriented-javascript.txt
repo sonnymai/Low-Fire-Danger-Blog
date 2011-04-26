@@ -4,7 +4,13 @@ date: 15/04/2011
 
 Writing maintainable and reusable code in javascript is difficult when writing it procedurally, especially in larger applications. Writing object oriented javascript is a useful skill you should learn if you plan to do a large portion of your time developing the front-end of web applications.
 
-In order to make objects in javascript reusable, child classes should be able to inherit methods and properties of their parent class. This article is a quick introduction to inheritance. I'll be going though some concepts of "classical" inheritance, the more preferred method of prototypal inheritance will come in a follow up article. *TODO for Sonny*
+In order to make objects in javascript reusable, child classes should be able to inherit methods and properties of their parent class. I'll be going though some concepts of "classical" inheritance; as there are a few ways to achieve inheritance in javascript. This includes:
+
+- Prototypal
+- Using Mix-ins (Great if you have a ruby background)
+- Borrowing methods using call or apply
+
+I'll discuss these methods in a future article. Theres no "more" correct method for inheritance, I believe it's a matter of opinion and comfort. For now I'll just go through some concepts of classical inheritance; because most people are more familiar with classical inheritance from languages such as java, php, C++ etc.
 
 Below is some code to demonstrate the basics of creating a class and instantiating that class.
 
