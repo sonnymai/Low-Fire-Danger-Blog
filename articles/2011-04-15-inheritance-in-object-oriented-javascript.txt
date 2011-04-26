@@ -4,7 +4,7 @@ date: 15/04/2011
 
 Writing maintainable and reusable code in javascript is difficult when writing it procedurally, especially in larger applications. Writing object oriented javascript is a useful skill you should learn if you plan to do a large portion of your time developing the front-end of web applications.
 
-In order to make objects in javascript reusable, child classes should be able to inherit methods and properties of their parent class. This article is a quick introduction to inheritance.
+In order to make objects in javascript reusable, child classes should be able to inherit methods and properties of their parent class. This article is a quick introduction to inheritance. I'll be going though some concepts of "classical" inheritance, the more preferred method of prototypal inheritance will come in a follow up article. *TODO for Sonny*
 
 Below is some code to demonstrate the basics of creating a class and instantiating that class.
 
@@ -90,30 +90,6 @@ Now we got "Tweety" appearing in the move() method, but now the method is coming
 	var myBird = new Bird('tweety');
 	myBird.move(); //Alerts 'Tweety is flying'
 
+We have moved the method of move() outside of Pet into a prototype function. This allows the method to be over-ridden by the Bird class.
 
-But what happens if we override some functionality to the Pet class using prototype *before* we extended the Pet class to the Bird class?
-
-
-	var Pet = function(name){
-		this.name = name || "Snowy";
-		
-		this.move = function(){
-			return alert(this.name + " is walking");
-		}
-	
-		this.eat = function(){
-			return alert('Pet is eating');
-		}
-	}
-	
-	Pet.prototype.eat = function(food){
-		alert(this.name + ' is eating ' + food);
-	};
-	
-	
-	function Bird(){};
-	Bird.prototype = new Pet();
-	var myBird = new Bird('tweety');
-	myBird.eat('seeds'); //Alerts 'Pet is eating'
-	
-From the above example, the output is not what we naturally expected. This calling eat() on myBird alerts us with "Pet is eating", instead of "tweety is eating seeds". This is because when we use the prototype function to extend and modify methods inside classes, the method is first searched for inside the original parent class constructor. Therefore we get "Pet is eating". So how do we make sure that
+Thats all for now, in the next article, I'll go throught prototypal inheritance, which is "the javascript way" of object orientated programming; less intuitive if you're use to classical languages such as java.
