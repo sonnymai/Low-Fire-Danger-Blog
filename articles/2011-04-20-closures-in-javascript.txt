@@ -1,6 +1,6 @@
 --- 
 title: Closures in Javascript
-date: 26/04/2011
+date: 20/04/2011
 
 I've been doing some more in depth learning of javascript lately, trying to challenge what I already know about javascript. One neat thing I've learnt about is closures. To understand closures, you should first understand that functions in javascript can be used as variables as below.
 

@@ -43,12 +43,14 @@ a:hover {
   text-decoration: underline;
 }
 body > header > h1 {
-	border-left: 30px solid black;
-	padding-left: 30px;
-  font-size: 201px;
+  font-size: 150px;
   margin: 100px 0 15px 0;
   font-weight: normal;
 }
+
+body > header > p{
+	line-height: 30px;
+} 
 .post header {
 	margin-bottom: 10px;
 }
@@ -81,7 +83,7 @@ body > header {
 	display: block;
 	padding-top: 30px;
 	line-height: 180px;
-	margin-bottom: 20px;
+	margin-bottom: 80px;
 }
 h1, h2, h3, h4 {
   display: inline;
