@@ -6,7 +6,7 @@ Writing maintainable and reusable code in javascript is difficult when writing i
 
 In order to make objects in javascript reusable, child classes should be able to inherit methods and properties of their parent class. This article is a quick introduction to inheritance.
 
-Below is some code to demonstrate the basics of create a class and instantiating that class.
+Below is some code to demonstrate the basics of creating a class and instantiating that class.
 
 	//Pet class
 	var Pet = function(name){
@@ -50,30 +50,53 @@ That looks all great and seems to work well; except it outputs "Snowy is flying"
 
 	var Pet = function(name){
 		this.name = name || "Snowy";
-
+		
 		this.move = function(){
 			return alert(this.name + " is walking");
 		}
 	}
-
+	
 	function Bird(name){
 		Pet.apply(this, arguments);
 	};
-
+	
 	Bird.prototype = new Pet();
 	Bird.prototype.move = function(){
 		return alert(this.name + " is flying");
 	}
-
+	
 	var myBird = new Bird('Tweety');
 	myBird.move(); //Alerts 'Tweety is walking'
+
+Now we got "Tweety" appearing in the move() method, but now the method is coming from the original Class; so instead of "Tweety is flying", we get "Tweety is walking". It turns out that we the method first looks inside of the parent class for the method before visiting the prototype.
+
+	var Pet = function(name){
+		this.name = name || "Snowy";
+	}
+	
+	Pet.prototype.move = function(){
+		return alert(this.name + " is walking");
+	}
+	
+	function Bird(name){
+		Pet.apply(this, arguments);
+	};
+	
+	Bird.prototype = new Pet();
+	Bird.prototype.move = function(){
+		return alert(this.name + " is flying");
+	}
+	
+	var myBird = new Bird('tweety');
+	myBird.move(); //Alerts 'Tweety is flying'
 
 
 But what happens if we override some functionality to the Pet class using prototype *before* we extended the Pet class to the Bird class?
 
+
 	var Pet = function(name){
 		this.name = name || "Snowy";
-
+		
 		this.move = function(){
 			return alert(this.name + " is walking");
 		}
@@ -82,12 +105,12 @@ But what happens if we override some functionality to the Pet class using protot
 			return alert('Pet is eating');
 		}
 	}
-
+	
 	Pet.prototype.eat = function(food){
 		alert(this.name + ' is eating ' + food);
 	};
-
-
+	
+	
 	function Bird(){};
 	Bird.prototype = new Pet();
 	var myBird = new Bird('tweety');
