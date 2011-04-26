@@ -1,0 +1,96 @@
+--- 
+title: Inheritance in Object Oriented Javascript
+date: 15/04/2011
+
+Writing maintainable and reusable code in javascript is difficult when writing it procedurally, especially in larger applications. Writing object oriented javascript is a useful skill you should learn if you plan to do a large portion of your time developing the front-end of web applications.
+
+In order to make objects in javascript reusable, child classes should be able to inherit methods and properties of their parent class. This article is a quick introduction to inheritance.
+
+Below is some code to demonstrate the basics of create a class and instantiating that class.
+
+	//Pet class
+	var Pet = function(name){
+		this.name = name || "Snowy";
+
+		this.move = function(){
+			return alert(this.name + " is walking");
+		}
+	}
+	
+	//Creating an instance of Pet
+	var myBird = new Pet("Tweety");
+	myBird.move(); //Alerts 'Tweety is walking'
+	
+In the above example, we define the class "Pet" (note the var name is capitalised as a convention to indicate this is a constructor function (Constructor functions are basically any function that you can create instances of, i.e. classes)). We also give the Pet class an instance variable "name" (the name of the pet). A instance method is also given to the the Pet class "move".
+
+We then create a new instance of Pet for our bird named "Tweety". We then call the "move" method, which alerts us with "Tweety is walking". So that sounds about right, except birds mostly don't walk, they fly. So we should extend the Pet class to accommodate for pet birds.
+
+	var Pet = function(name){
+		this.name = name || "Snowy";
+
+		this.move = function(){
+			return alert(this.name + " is walking");
+		}
+	}
+
+	//Create an placeholder Class
+	function Bird(){};
+
+	//Inherit the Pet class into the Bird class
+	Bird.prototype = new Pet();
+	//Over-ride the move function using prototype
+	Bird.prototype.move = function(){
+		return alert(this.name + " is flying");
+	}
+
+	var myBird = new Bird('Tweety');
+	myBird.move(); //Alerts 'Snowy is flying'
+	
+That looks all great and seems to work well; except it outputs "Snowy is flying" instead of "Tweety is flying"! What is happening here? It turns out the child class "Bird" does not pass the constructor parameters to the parent. So that is not a really ideal solution to this problem. We need to pass in the constructor object using apply().
+
+	var Pet = function(name){
+		this.name = name || "Snowy";
+
+		this.move = function(){
+			return alert(this.name + " is walking");
+		}
+	}
+
+	function Bird(name){
+		Pet.apply(this, arguments);
+	};
+
+	Bird.prototype = new Pet();
+	Bird.prototype.move = function(){
+		return alert(this.name + " is flying");
+	}
+
+	var myBird = new Bird('Tweety');
+	myBird.move(); //Alerts 'Tweety is walking'
+
+
+But what happens if we override some functionality to the Pet class using prototype *before* we extended the Pet class to the Bird class?
+
+	var Pet = function(name){
+		this.name = name || "Snowy";
+
+		this.move = function(){
+			return alert(this.name + " is walking");
+		}
+	
+		this.eat = function(){
+			return alert('Pet is eating');
+		}
+	}
+
+	Pet.prototype.eat = function(food){
+		alert(this.name + ' is eating ' + food);
+	};
+
+
+	function Bird(){};
+	Bird.prototype = new Pet();
+	var myBird = new Bird('tweety');
+	myBird.eat('seeds'); //Alerts 'Pet is eating'
+	
+From the above example, the output is not what we naturally expected. This calling eat() on myBird alerts us with "Pet is eating", instead of "tweety is eating seeds". This is because when we use the prototype function to extend and modify methods inside classes, the method is first searched for inside the original parent class constructor. Therefore we get "Pet is eating". So how do we make sure that
