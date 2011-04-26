@@ -1,0 +1,8 @@
+--- 
+title: Love Ruby, Markdown, Heroku and Blogging?
+date: 26/04/2011
+
+If you said yes to all the above, and you want to set up the most minimalistic blog ever, then continue reading. I'm going to show you how to setup a blog using Toto from Cloudhead.
+
+
+
