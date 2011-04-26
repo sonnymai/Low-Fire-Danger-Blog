@@ -1,0 +1,62 @@
+--- 
+title: Closures in Javascript
+date: 26/04/2011
+
+I've been doing some more in depth learning of javascript lately, trying to challenge what I already know about javascript. One neat thing I've learnt about is closures. Closures
+
+Functions as variables
+----------------------
+
+Within the Javascript language, functions are treated as variables. This means that you can pass functions around like variables. which lets you doing something like this:
+
+	function createUselessFunction(value){
+		return function(){
+			alert(value);
+		};
+	}
+
+	var newFunction = createUselessFunction('cat');
+
+	newFunction(); //Alerts 'cat'
+	
+	//Alternative syntax
+	createUselessFunction('dog')(); //Alerts 'dog'
+	
+Closures
+--------
+
+Closures deal with the above scenario and the way it handles local variables inside the function.
+
+	function anotherUselessFunction(value){
+		var localVariable = "I am local";
+		
+		return function(){
+			alert(value + ' ' + localVariable);
+		}
+	}
+	
+	var uselessFunction = anotherUselessFunction('WOW!');
+	
+What happens when we execute uselessFunction()? Would localVariable be accessible from uselessFunction()? It turns out that
+it is accessible.
+
+	uselessFunction(); //Alerts 'WOW! I am Local'
+	
+So we see that javascript "closes" in local variables and allows returned functions to access these variables. An example use for
+it is described below. This example shows how we can create a custom multiplier.
+	
+
+	function multiplier(amount){
+		return function(number){
+			alert(amount * number);
+		};
+	}
+	
+	var timesFive = multiplier(5);
+	
+	// 5 x 3
+	timesFive(3); //Alerts 15
+	// 5 x 12
+	timesFive(12); //Alerts 60
+	
+	
