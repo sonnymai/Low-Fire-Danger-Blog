@@ -1,6 +1,6 @@
 --- 
 title: Setting up proxies for apt-get in Ubuntu
-date: 13/04/2011
+date: 13/01/2011
 
 I had installed ubuntu server 10.04 at work behind a proxy. I wanted to do a "aptitude update", which of course won't work till you set up the proxy correctly.
 
