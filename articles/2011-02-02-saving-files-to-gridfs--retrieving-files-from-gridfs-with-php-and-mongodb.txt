@@ -1,0 +1,58 @@
+--- 
+title: Saving files to GridFS + Retrieving files from GridFS with PHP and MongoDB
+date: 02/02/2011
+
+So I've been playing around with GridFS in [MongoDB](http://mongodb.org) to try and store some files for a project I'm working on. Heres some basics that I've learnt and would probably help somone out there.
+
+I had a problem where I wanted to save an existing file on the hard drive to GridFS; but everytime I specified the path, it'll save it correctly, but the "filename" metatag in GridFS would show the full path instead of just the file name (/path/to/file.jpg instead of file.jpg). So I found out you should define the metatag for the filename manually as I've done in the code below.
+
+GridFS makes an excellent datastore, especially if you plan to scale in the future. Sharding is easy with MongoDB and therefore, working with sharding and GridFS is also easy, so you can scale out and distribute the serving of files easily and headache free.
+
+**saveToGridFS.php**
+
+    <?php
+    //This example will show you how to save a file existing on the filesystem to
+    //GridFS in mongoDB.
+
+    $mongo = new Mongo();
+    $mongoDb = $mongo->selectDB('test');
+
+    //The default namespace to save to gridfs is fs.files fs.chunks
+    //We will use myfiles.files and myfiles.chunks
+    $gridFS = $mongoDb->getGridFS('myfiles');
+
+    $myMeta = array('metadata'=>array('views'=>0, 'version'=>1));
+
+    $gridFS->storeFile('/path/to/my/file.jpg', array('filename'=>'file.jpg',$myMeta));
+
+**retrieveAndSaveToFileSystem.php**
+
+    <?php
+    //This example will show you how to retrieve a file from mongodb gridFS and
+    //save the output to the filesystem
+    $mongo = new Mongo();
+    $mongoDb = $mongo->selectDB('test');
+
+    //The default namespace to save to gridfs is fs.files fs.chunks
+    //We will use myfiles.files and myfiles.chunks
+    $gridFS = $mongoDb->getGridFS('myfiles');
+    $image = $gridFS->findOne('file.jpg');
+    //This will write the image to the filesystem
+    $image->write('/path/to/write/to/file.jpg');
+
+**retrieveAndOutputToBrowser.php**
+
+    <?php
+    //This example will show you how to retrieve a file from mongodb gridFS and
+    //output it in a browser window.
+
+    $mongo = new Mongo();
+    $mongoDb = $mongo->selectDB('test');
+
+    //The default namespace to save to gridfs is fs.files fs.chunks
+    //We will use myfiles.files and myfiles.chunks
+    $gridFS = $mongoDb->getGridFS('myfiles');
+    $image = $gridFS->findOne('file.jpg');
+    //This will write the image to the browser output
+    header('Content-type: image/jpeg');
+    echo $image->getBytes();

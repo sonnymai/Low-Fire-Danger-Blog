@@ -1,0 +1,3 @@
+default=
+new=Create a new article.
+publish=Publish my blog.
