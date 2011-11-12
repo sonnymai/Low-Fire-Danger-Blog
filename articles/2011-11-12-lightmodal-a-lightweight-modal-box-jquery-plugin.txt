@@ -1,0 +1,25 @@
+--- 
+title: lightModal a lightweight modal box jquery plugin
+date: 12/11/2011
+
+## YALB? (Yet Another Light Box?)
+
+It was really hard to find a modal/lightbox that could let you put an instance of tinyMCE inside, so we built this one.
+
+I built it to use on one of our products [LessPlan](http://lessplan.com), a web application to help teachers generate and share lesson plans.
+
+[Get source code including jasmine tests on Github](https://github.com/sonnymai/Jquery-add-remove-fields-plugin)
+
+## Features
+
+- Custom callbacks for onShow and onHide
+- Click overlay to hide
+- Disablable close button
+
+## How
+
+Typical modal/lightbox plugins clone markup and reinsert it into the plugin's own container. This works fine until you have javascript bound to elements or iframes. lightModal, takes a different approach by making the original content container the lightbox, thus keeping any javascript bindings.
+
+##Basic usage
+
+This is the most basic example
