@@ -97,10 +97,6 @@ h1, h2, h3, h4 {
 ul, li {
   list-style-type: none; }
 
-/*
-code {
-    font-family: 'Anonymous Pro', 'Bitstream Vera Sans', 'Monaco', Courier, mono;
-}*/
 pre {
   padding: 20px;
   font-size: 14px; }
@@ -113,3 +109,28 @@ body > footer {
   font-style: italic;
   font-size: 18px;
   color: #888; }
+
+div.demo {
+  border: 1px dashed #999;
+  padding: 45px;
+  font-family: arial;
+  font-size: 14px; }
+  div.demo h1, div.demo h2, div.demo h3 {
+    display: block;
+    margin-bottom: 20px; }
+
+.field.phone {
+  position: relative; }
+
+a.delete-element {
+  display: inline-block;
+  background: url("/images/minus_alt_16x16.png") no-repeat 0 7px; }
+  a.delete-element span {
+    margin-left: 20px; }
+
+a.add-element {
+  display: block;
+  background: url("/images/plus_alt_16x16.png") no-repeat 0 7px;
+  margin-bottom: 20px; }
+  a.add-element span {
+    margin-left: 20px; }

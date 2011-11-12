@@ -1,0 +1,83 @@
+--- 
+title: Add Remove Fields Jquery plugin
+date: 12/05/2011
+
+I made a jQuery plugin for replicating elements on a page. It lets you replicate any block element into a container. See below for example.
+
+[Get source code including QUnit tests on Github](https://github.com/sonnymai/Jquery-add-remove-fields-plugin)
+
+Usage
+=====
+
+	<form>
+	  <h2>Phone numbers</h2>
+	  <div id="phone_number_elements_container">
+		<div class="field phone">
+		    <label for="phone">Phone number</label>
+		    <input id="phone" name="person[phone][]" type="text" />
+		</div>
+	  </div>
+	</form>
+	
+	<script>
+        $('#phone_number_elements_container').addRemoveFields({
+			elementToReplicate: ".phone.field",
+			maximumClones: 2,
+			keepFirst: true
+		});
+	</script>
+
+Demo
+====
+
+<script src="/js/plugins/jquery.add_remove_fields.js" type="text/javascript"></script> 
+
+<div class="demo">
+<form accept-charset="UTF-8" action="http://localhost/phone/new" id="phone/new" method="post">
+  <h2>Phone numbers</h2>
+  <div id="phone_number_elements">
+	<div class="field phone">
+	    <label for="phone">Phone number</label>
+	    <input id="phone" name="person[phone][]" type="text" />
+	</div>
+  </div>
+
+  <h2>Address</h2>
+  <div id="address_elements">
+	<div class="field address">
+	    <label for="address">Address</label>
+	    <input id="address" name="person[address][]" type="text" />
+	    <label for="suburb">Suburb</label>
+	    <input id="suburb" name="person[suburb][]" type="text" />
+	</div>
+	<div class="field address">
+	    <label for="address">Address</label>
+	    <input id="address" name="person[address][]" type="text" />
+	    <label for="suburb">Suburb</label>
+	    <input id="suburb" name="person[suburb][]" type="text" />
+	</div>
+  </div>
+
+  <div>
+    <input type="button" name="Save" value="Save" />
+    <input type="button" name="Cancel" value="Cancel" />
+  </div>
+</form>
+</div>
+
+<script>
+    $(document).ready(function() {
+        $('#phone_number_elements').addRemoveFields({
+			elementToReplicate: ".phone.field",
+			maximumClones: 2,
+			keepFirst: true
+		});
+        $('#address_elements').addRemoveFields({
+			elementToReplicate: ".address.field",
+			maximumClones: 0,
+			keepFirst: false,
+			addText: 'Add another address',
+			deleteText: 'Remove this address!!'
+		});
+    });
+</script>
